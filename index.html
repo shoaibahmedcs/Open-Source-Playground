@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KINGREE Production - Corporate Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            /* Sky background gradient */
+            background: linear-gradient(to bottom, #87CEEB 0%, #98D8E8 50%, #B0E0E6 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            overflow-x: hidden; /* Prevent horizontal scroll from animations */
+            position: relative;
+        }
+
+        /* Background Elements - Sky Interactions */
+        .sky-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Sun */
+        .sun {
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #FFD700 0%, #FFA500 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
+            animation: sunPulse 4s ease-in-out infinite alternate;
+        }
+
+        .sun::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: conic-gradient(from 0deg, transparent 0deg, #FFD700 10deg, transparent 20deg);
+            border-radius: 50%;
+            animation: sunRays 6s linear infinite;
+        }
+
+        @keyframes sunPulse {
+            0% { transform: scale(1); box-shadow: 0 0 50px rgba(255, 215, 0, 0.5); }
+            100% { transform: scale(1.05); box-shadow: 0 0 70px rgba(255, 215, 0, 0.7); }
+        }
+
+        @keyframes sunRays {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Clouds */
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 50px;
+            opacity: 0.8;
+            animation: floatCloud 20s linear infinite;
+        }
+
+        .cloud1 {
+            top: 15%;
+            left: -100px;
+            width: 120px;
+            height: 40px;
+            animation-delay: 0s;
+        }
+
+        .cloud1::before, .cloud1::after {
+            content: '';
+            position: absolute;
+            background: white;
+            border-radius: 50px;
+        }
+
+        .cloud1::before {
+            width: 60px;
+            height: 60px;
+            top: -30px;
+            left: 20px;
+        }
+
+        .cloud1::after {
+            width: 80px;
+            height: 80px;
+            top: -40px;
+            right: 20px;
+        }
+
+        .cloud2 {
+            top: 25%;
+            left: -150px;
+            width: 100px;
+            height: 35px;
+            animation-delay: 5s;
+        }
+
+        .cloud2::before, .cloud2::after {
+            content: '';
+            position: absolute;
+            background: white;
+            border-radius: 50px;
+        }
+
+        .cloud2::before {
+            width: 50px;
+            height: 50px;
+            top: -25px;
+            left: 15px;
+        }
+
+        .cloud2::after {
+            width: 70px;
+            height: 70px;
+            top: -35px;
+            right: 15px;
+        }
+
+        .cloud3 {
+            top: 20%;
+            left: -120px;
+            width: 140px;
+            height: 45px;
+            animation-delay: 10s;
+        }
+
+        .cloud3::before, .cloud3::after {
+            content: '';
+            position: absolute;
+            background: white;
+            border-radius: 50px;
+        }
+
+        .cloud3::before {
+            width: 70px;
+            height: 70px;
+            top: -35px;
+            left: 25px;
+        }
+
+        .cloud3::after {
+            width: 90px;
+            height: 90px;
+            top: -45px;
+            right: 25px;
+        }
+
+        @keyframes floatCloud {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(calc(100vw + 100px)); }
+        }
+
+        /* Birds */
+        .bird {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 15px solid #4a5568;
+            animation: flyBird 15s linear infinite;
+            top: 30%;
+        }
+
+        .bird::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 10px;
+            height: 10px;
+            background: #4a5568;
+            border-radius: 50%;
+            animation: flapWing 1s ease-in-out infinite alternate;
+        }
+
+        .bird1 {
+            left: -50px;
+            animation-delay: 0s;
+        }
+
+        .bird2 {
+            left: -50px;
+            top: 35%;
+            animation-delay: 3s;
+            transform: scale(0.8);
+        }
+
+        @keyframes flyBird {
+            0% { transform: translateX(-50px) rotate(0deg); }
+            100% { transform: translateX(calc(100vw + 50px)) rotate(10deg); }
+        }
+
+        @keyframes flapWing {
+            0% { transform: rotate(-20deg); }
+            100% { transform: rotate(20deg); }
+        }
+
+        /* Flowers (at bottom) */
+        .flower {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #FF69B4 0%, #FFB6C1 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: swayFlower 3s ease-in-out infinite alternate;
+        }
+
+        .flower::before, .flower::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #FF1493;
+            border-radius: 50%;
+        }
+
+        .flower::before {
+            top: -10px;
+            left: 10px;
+        }
+
+        .flower::after {
+            top: -10px;
+            right: 10px;
+        }
+
+        .flower1 { left: 20%; animation-delay: 0s; }
+        .flower2 { left: 50%; animation-delay: 1s; }
+        .flower3 { left: 80%; animation-delay: 2s; }
+
+        @keyframes swayFlower {
+            0% { transform: translateX(-50%) rotate(-5deg); }
+            100% { transform: translateX(-50%) rotate(5deg); }
+        }
+
+        /* Login Container */
+        .login-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            z-index: 2;
+        }
+
+        .background-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            z-index: -1;
+            border-radius: 20px;
+        }
+
+        /* Login Form */
+        .login-form {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .logo-section {
+            margin-bottom: 30px;
+        }
+
+        /* SVG Logo */
+        .logo {
+            width: 120px;
+            height: 60px;
+            margin: 0 auto 10px;
+        }
+
+        .tagline {
+            font-size: 1em;
+            color: #4a5568;
+            font-weight: 400;
+            margin-top: 5px;
+        }
+
+        /* Form Elements */
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #4a5568;
+            font-size: 0.95em;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background: #f7fafc;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: white;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-bottom: 20px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Form Footer */
+        .form-footer {
+            font-size: 0.9em;
+        }
+
+        .forgot-link {
+            display: block;
+            color: #667eea;
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-link:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        .form-footer p {
+            color: #a0aec0;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 10px;
+                margin: 20px;
+            }
+            
+            .login-form {
+                padding: 30px 20px;
+            }
+
+            .sun {
+                width: 60px;
+                height: 60px;
+                top: 5%;
+                right: 5%;
+            }
+
+            .flower {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Sky Elements -->
+    <div class="sky-elements">
+        <!-- Sun -->
+        <div class="sun"></div>
+        
+        <!-- Clouds -->
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+        <div class="cloud cloud3"></div>
+        
+        <!-- Birds -->
+        <div class="bird bird1"></div>
+        <div class="bird bird2"></div>
+        
+        <!-- Flowers -->
+        <div class="flower flower1"></div>
+        <div class="flower flower2"></div>
+        <div class="flower flower3"></div>
+    </div>
+
+    <div class="login-container">
+        <div class="login-form">
+            <div class="logo-section">
+                <!-- Attractive SVG Logo -->
+                <svg class="logo" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#FFA500;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <!-- Stylized K with gear/crown elements for production theme -->
+                    <path d="M10 10 L10 50 L30 50 L30 30 L50 50 L50 10 L30 10 L30 30 L10 10 Z" fill="url(#logoGrad)" stroke="#4a5568" stroke-width="2"/>
+                    <!-- Gear-like accents -->
+                    <circle cx="40" cy="30" r="8" fill="none" stroke="#4a5568" stroke-width="2"/>
+                    <circle cx="40" cy="30" r="4" fill="#FFD700"/>
+                    <!-- Crown top -->
+                    <path d="M20 5 L25 15 L30 5 L35 15 L40 5" fill="none" stroke="#FFD700" stroke-width="3" stroke-linecap="round"/>
+                    <!-- Text: KINGREE -->
+                    <text x="55" y="40" font-family="Roboto, sans-serif" font-size="18" font-weight="700" fill="#4a5568" letter-spacing="1">KINGREE</text>
+                    <text x="55" y="55" font-family="Roboto, sans-serif" font-size="10" font-weight="300" fill="#a0aec0">Production</text>
+                </svg>
+                <p class="tagline">KINGREE Production: Innovating Excellence, Securing Tomorrow</p>
+            </div>
+            
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <button type="submit" class="login-btn">Login</button>
+                
+                <div class="form-footer">
+                    <a href="#" class="forgot-link">Forgot Password?</a>
+                    <p>&copy; 2023 KINGREE Production. All rights reserved. Abdul Ahad, CEO KINGREE Production.</p>
+                </div>
+            </form>
+        </div>
+        
+        <div class="background-overlay"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+
+            loginForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                // Basic validation
+                const username = usernameInput.value.trim();
+                const password = passwordInput.value.trim();
+
+                if (username === '' || password === '') {
+                    alert('Please enter both username and password.');
+                    return;
+                }
+
+                if (password.length < 6) {
+                    alert('Password must be at least 6 characters long.');
+                    return;
+                }
+
+                // Simulate login success (replace with actual API call later)
+                alert('Login successful! Welcome to KINGREE Production, ' + username + '.');
+                
+                // Optional: Redirect to a dashboard
+                // window.location.href = 'dashboard.html';
+            });
+
+            // Add focus effects for better UX
+            [usernameInput, passwordInput].forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentElement.classList.remove('focused');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
