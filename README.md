@@ -153,3 +153,7 @@ Keep contributing , and happy hacktoberfest!
 o [Hacktoberfest Official Site](https://hacktoberfest.com) 
 o [GitHub Docs](https://docs.github.com) 
 
+## Resources 
+o [Hacktoberfest Official Site](https://hacktoberfest.com) 
+o [GitHub Docs](https://docs.github.com) 
+
