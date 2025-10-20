@@ -1,4 +1,5 @@
 # 🎮 Open Source Playground
+- This repo is part of Hacktoberfest 2025 — contributions welcome! 
 
 [![Hacktoberfest](https://img.shields.io/badge/Hacktoberfest-friendly-ff7b00)](https://hacktoberfest.digitalocean.com/)
 [![Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg)](CONTRIBUTING.md)
