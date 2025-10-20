@@ -60,7 +60,11 @@ Fun Fact: I hate notifications!
 ### [Sameer Khuhro](https://github.com/sameerkhuhro)
 add: Sameer Khuhro to contributors list
 
-
+### [Shoaib Ahmed](https://github.com/shoaibahmedcs)
+- **Fun Fact**: I love turning coffee into code and code into something that actually helps people. ☕💻
+- **Favourite Programming Language**: Python
+- **Location**: Khairpur, Sindh, Pakistan
+- **First Contribution Date**: 2025-10-20
 
   add:Dua Ali to contributor list.
 
